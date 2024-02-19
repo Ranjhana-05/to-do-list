@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <style>
+        label, select {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .selected-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .delete-item, .strike-through {
+            margin-left: auto;
+            cursor: pointer;
+            font-size: 12px;
+            color: black;
+        }
+        .strike-through {
+            margin-left: 5px;
+        }
+        .add-item {
+            margin-left: auto;
+            cursor: pointer;
+            font-size: 18px;
+            color: #007bff;
+        }
+        .add-item:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Grocery Shopping List</h2>
+
+    <form id="shoppingForm">
+        <label for="vegetables">Vegetables:</label>
+        <select id="vegetables" name="vegetables" onchange="addSelectedItem(this.value, 'vegetables')">
+            <option value="" disabled selected>Select Item</option>
+            <option value="onion">Onion</option>
+            <option value="tomato">Tomato</option>
+            <option value="cabbage">Cabbage</option>
+            <option value="ginger">Ginger</option>
+            <option value="lemon">Lemon</option>
+            <option value="garlic">Garlic</option>
+            <option value="chillies">Chillies</option>
+            <option value="chives">Chives</option>
+            <option value="carrot">Carrot</option>
+            <option value="beetroot">Beetroot</option>
+            <!-- Add more vegetable options as needed -->
+        </select>
+
+        <label for="fruits">Fruits:</label>
+        <select id="fruits" name="fruits" onchange="addSelectedItem(this.value, 'fruits')">
+            <option value="" disabled selected>Select Item</option>
+            <option value="apple">Apple</option>
+            <option value="banana">Banana</option>
+            <option value="strawberry">Strawberry</option>
+            <option value="kiwi">Kiwi</option>
+            <option value="watermelon">Watermelon</option>
+            <option value="muskmelon">Muskmelon</option>
+            <option value="grapes">Grapes</option>
+            <option value="guava">Guava</option>
+            <option value="orange">Orange</option>
+            <option value="pineapple">Pineapple</option>
+            <!-- Add more fruit options as needed -->
+        </select>
+
+        <label for="necessaries">Necessaries:</label>
+        <select id="necessaries" name="necessaries" onchange="addSelectedItem(this.value, 'necessaries')">
+            <option value="" disabled selected>Select Item</option>
+            <option value="bread">Bread</option>
+            <option value="ghee">Ghee</option>
+            <option value="oil">Oil</option>
+            <option value="butter">Butter</option>
+            <option value="cheese">Cheese</option>
+            <option value="egg">Egg</option>
+            <option value="milk">Milk</option>
+            <option value="curd">Curd</option>
+            <!-- Add more necessaries options as needed -->
+        </select>
+
+        <span class="add-item" onclick="addCustomItem()">+</span>
+    </form>
+
+    <div id="selectedItems"></div>
+
+    <script>
+        function addSelectedItem(item, category) {
+            var selectedItemsDiv = document.getElementById("selectedItems");
+            var itemBox = document.createElement("div");
+            itemBox.className = "selected-item";
+            
+            var strikeThroughCheckbox = document.createElement("input");
+            strikeThroughCheckbox.type = "checkbox";
+            strikeThroughCheckbox.className = "strike-through";
+            strikeThroughCheckbox.onclick = function() {
+                if (strikeThroughCheckbox.checked) {
+                    itemText.style.textDecoration = "line-through";
+                } else {
+                    itemText.style.textDecoration = "none";
+                }
+            };
+
+            var itemText = document.createElement("span");
+            itemText.textContent = item;
+            
+            var deleteButton = document.createElement("span");
+            deleteButton.className = "delete-item";
+            deleteButton.textContent = "×";
+            deleteButton.onclick = function() {
+                selectedItemsDiv.removeChild(itemBox);
+            };
+            
+            itemBox.appendChild(strikeThroughCheckbox);
+            itemBox.appendChild(itemText);
+            itemBox.appendChild(deleteButton);
+            
+            selectedItemsDiv.appendChild(itemBox);
+        }
+
+        function addCustomItem() {
+            var selectedItemsDiv = document.getElementById("selectedItems");
+            var customItem = prompt("Enter custom item:");
+            
+            if (customItem) {
+                var itemBox = document.createElement("div");
+                itemBox.className = "selected-item";
+                
+                var strikeThroughCheckbox = document.createElement("input");
+                strikeThroughCheckbox.type = "checkbox";
+                strikeThroughCheckbox.className = "strike-through";
+                strikeThroughCheckbox.onclick = function() {
+                    if (strikeThroughCheckbox.checked) {
+                        itemText.style.textDecoration = "line-through";
+                    } else {
+                        itemText.style.textDecoration = "none";
+                    }
+                };
+
+                var itemText = document.createElement("span");
+                itemText.textContent = customItem;
+                
+                var deleteButton = document.createElement("span");
+                deleteButton.className = "delete-item";
+                deleteButton.textContent = "×";
+                deleteButton.onclick = function() {
+                    selectedItemsDiv.removeChild(itemBox);
+                };
+                
+                itemBox.appendChild(strikeThroughCheckbox);
+                itemBox.appendChild(itemText);
+                itemBox.appendChild(deleteButton);
+                
+                selectedItemsDiv.appendChild(itemBox);
+            }
+        }
+    </script>
+
+</body>
+</html>
